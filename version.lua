@@ -1,3 +1,3 @@
 author 'ManKind - [https://discord.gg/39fNFepADG]'
 description 'Vehicle Vanity/Fake Plates'
-version '1.0.2'
+version '1.1.0'
