@@ -61,7 +61,7 @@
                 UPDATE_GLOVEBOX = 'UPDATE `{vehicle_table}` SET glovebox = ? WHERE `{vehicle_column}`',
             
             ```
-    -   replace `if shared.framework == 'ox'` entire if statement with the following:
+    -   replace `if shared.framework == 'ox' then` entire if statement with the following:
         ```lua
         
             if shared.framework == 'ox' then
