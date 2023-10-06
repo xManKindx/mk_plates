@@ -81,7 +81,7 @@
         **Not doing the above function replace will not update glovebox/trunk items when fake plate is added.**
         - **NOTE: MAKE SURE YOUR TRUNKITEMS OR GLOVEBOXITEMS DATABASE TABLES HAVE AT LEAST 1 ENTRY IN THEM OR YOUR INVENTORIES WILL NOT UPDATE WHEN PLATES ARE CHANGED IF USING QB-INVENTORY**
 
-    # [ox_inventory] **Version 2.23.4++ Required**
+-   # [ox_inventory] **Version 2.23.4++ Required**
        - Add item images (if new items) to [ox_inventory/web/images]
        - Add items to [ox_inventory/data/items.lua]
             ```lua
