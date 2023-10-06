@@ -99,9 +99,9 @@
                 },
             ```
 
-        ## FOLLOW OX_INVENTORY INTEGRATION STEPS SHOWN [HERE](https://github.com/xManKindx/mk_plates/blob/main/ox_inventory_setup.md)
+        - **FOLLOW OX_INVENTORY INTEGRATION STEPS SHOWN [HERE]**(https://github.com/xManKindx/mk_plates/blob/main/ox_inventory_setup.md)
 
-        -    **INTEGRATION WILL BE KEPT UP TO DATE IN THIS FILE TO PREVENT HAVING TO UPDATE THE SCRIPT BECAUSE OF AN OX_INVENTORY UPDATE**
+        - **INTEGRATION WILL BE KEPT UP TO DATE IN THIS FILE TO PREVENT HAVING TO UPDATE THE SCRIPT BECAUSE OF AN OX_INVENTORY UPDATE**
 
 # Vanity Plates Framework Installation 
 # [qb-core]
