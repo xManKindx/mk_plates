@@ -1,5 +1,4 @@
-# ox_inventory setup for mk_plates
-# version 2.23.4+ [ox_inventory]
+# ox_inventory [2.23.4+] setup for mk_plates
 
 -   navigate to [ox_inventory/modules/inventory/server.lua]
     - replace function `prepareInventorySave` with:
