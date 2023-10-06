@@ -68,40 +68,39 @@
             ```    
 
 # Fake Plates Inventory Installation 
--    # [qb-inventory]
-       - Add item images (if new items) to [qb-inventory/html/images/] folder (.png) (fakeplate example provided in [mk_plates] images folder)
-       - Locate function [IsVehicleOwned] inside [qb-inventory/server/main.lua] and replace with:
-            ```lua
+-   # [qb-inventory]
+    -   Add item images (if new items) to [qb-inventory/html/images/] folder (.png) (fakeplate example provided in [mk_plates] images folder)
+    - Locate function [IsVehicleOwned] inside [qb-inventory/server/main.lua] and replace with:
+        ```lua
 
-                local function IsVehicleOwned(plate)
-                    local result = MySQL.scalar.await('SELECT 1 from player_vehicles WHERE plate = :plate OR fakeplate = :plate', {plate = plate})
-                    return result
-                end
-            ```
-        **Not doing the above function replace will not update glovebox/trunk items when fake plate is added.**
-        - **NOTE: MAKE SURE YOUR TRUNKITEMS OR GLOVEBOXITEMS DATABASE TABLES HAVE AT LEAST 1 ENTRY IN THEM OR YOUR INVENTORIES WILL NOT UPDATE WHEN PLATES ARE CHANGED IF USING QB-INVENTORY**
+            local function IsVehicleOwned(plate)
+                local result = MySQL.scalar.await('SELECT 1 from player_vehicles WHERE plate = :plate OR fakeplate = :plate', {plate = plate})
+                return result
+            end
+        ```
+    **Not doing the above function replace will not update glovebox/trunk items when fake plate is added.**
+    - **NOTE: MAKE SURE YOUR TRUNKITEMS OR GLOVEBOXITEMS DATABASE TABLES HAVE AT LEAST 1 ENTRY IN THEM OR YOUR INVENTORIES WILL NOT UPDATE WHEN PLATES ARE CHANGED IF USING QB-INVENTORY**
 
 -   # [ox_inventory] **Version 2.23.4+ Required**
-       - Add item images (if new items) to [ox_inventory/web/images]
-       - Add items to [ox_inventory/data/items.lua]
-            ```lua
+    -   Add item images (if new items) to [ox_inventory/web/images]
+    -   Add items to [ox_inventory/data/items.lua]
+        ```lua
 
-                ['fakeplate'] = {
-                    label = 'Fake Plate',
-                    weight = 160,
-                    stack = false,
-                    close = true,
-                },
+            ['fakeplate'] = {
+                label = 'Fake Plate',
+                weight = 160,
+                stack = false,
+                close = true,
+            },
 
-                ['screwdriverset'] = {
-                    label = 'Toolset',
-                    weight = 160,
-                },
-            ```
+            ['screwdriverset'] = {
+                label = 'Toolset',
+                weight = 160,
+            },
+        ```
+    -   **FOLLOW OX_INVENTORY INTEGRATION STEPS SHOWN [HERE]**(https://github.com/xManKindx/mk_plates/blob/main/ox_inventory_setup.md)
 
-        - **FOLLOW OX_INVENTORY INTEGRATION STEPS SHOWN [HERE]**(https://github.com/xManKindx/mk_plates/blob/main/ox_inventory_setup.md)
-
-        - **INTEGRATION WILL BE KEPT UP TO DATE IN THIS FILE TO PREVENT HAVING TO UPDATE THE SCRIPT BECAUSE OF AN OX_INVENTORY UPDATE**
+    -   **INTEGRATION WILL BE KEPT UP TO DATE IN THIS FILE TO PREVENT HAVING TO UPDATE THE SCRIPT BECAUSE OF AN OX_INVENTORY UPDATE**
 
 # Vanity Plates Framework Installation 
 # [qb-core]
