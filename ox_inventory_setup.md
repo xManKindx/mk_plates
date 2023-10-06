@@ -1,7 +1,7 @@
 # ox_inventory setup for mk_plates
 # version 2.23.4+ [ox_inventory]
 
-# Note - Lua code is wrapped in ```code ``` ``` inside this file for visual purposes. Do not add this to your file, just the code located between ```lua and ```
+# Note - Lua code is wrapped in ``` ```lua``` ``` inside this file for visual purposes. Do not add this to your file, just the code located between ```lua and ```
 
 -   navigate to [ox_inventory/modules/inventory/server.lua]
     - replace function `prepareInventorySave` with:
