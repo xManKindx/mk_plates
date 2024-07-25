@@ -1,13 +1,12 @@
 Config = {}
 
-Config.ConsoleLogging = true --TRUE DISPLAYS SCRIPT LOGGING INFO IN F8 AND SERVER CONSOLE
-
-Config.GiveKeys = function(Vehicle, Plate)
-    ---@param Vehicle number Vehicle entity
-    ---@param Plate string Vehicle plate text
-    --If you use custom vehiclekeys script add your export/event here to give keys on plate update if required
+---@param vehicle number Vehicle entity
+---@param plate string Vehicle plate text
+--If you use custom vehiclekeys script add your export/event here to give keys on plate update if required
+Config.GiveKeys = function(vehicle, plate)
     --qb-vehiclekeys is checked for automatically and not needed here
     --mk_vehiclekeys does not require key updates for plate changes. Export is not needed here.
+
 end
 
 --Fake Plates Config
@@ -37,49 +36,36 @@ end
         '{letter}'
     }
 
-    Config.Database = {
-        UseCustom = false, --FALSE = USES DEFAULT QBCORE OR ESX DATABASE TABLES / TRUE = USES INFO BELOW
-        VehicleTable = 'player_vehicles', --Player Vehicles table in database
-        PlateField = 'plate', --Field that stores plate number inside player vehicles table
-        FakePlateField = 'fakeplate', --Field that stores fakeplate number inside player vehicles table
-        CitizenIdField = 'citizenid', --Field that stores player citizenid inside player vehicles table
-        ModsField = 'mods', --Field that stores vehicle mods in the player vehicles table
-        GloveBoxTable = {TableName = 'gloveboxitems', PlateField = 'plate'}, --Database Table for glovebox inventory
-        TrunkTable = {TableName = 'trunkitems', PlateField = 'plate'}, --Database Table for trunk items inventory
-    }
-
-    Config.FakeInstalled = function(PlayerSource, RealPlate, FakePlate, Vehicle, VehicleNetId)
-        ---@param PlayerSource number Player server id
-        ---@param RealPlate string Vehicle real plate
-        ---@param FakePlate string Vehicle fake plate that was installed
-        ---@param Vehicle number Vehicle entity
-        ---@param VehicleNetId number Vehicle network id
-
+    ---@param playerSource number Player server id
+    ---@param realPlate string Vehicle real plate
+    ---@param fakePlate string Vehicle fake plate that was installed
+    ---@param vehicle number Vehicle entity
+    ---@param netId number Vehicle network id
+    Config.FakeInstalled = function(playerSource, realPlate, fakePlate, vehicle, netId)
         --ADD ANY SERVER SIDE UPDATES YOU NEED TO DO HERE AFTER A FAKE PLATE IS INSTALLED
         --EXAMPLE DATABASE UPDATE:
-        --local Result = MySQL.update.await('UPDATE `mycustomdatabasetable` SET fakeplate = :fake WHERE plate = :current', {fake = FakePlate, current = RealPlate})
+        --local Result = MySQL.update.await('UPDATE `mycustomdatabasetable` SET fakeplate = ? WHERE plate = ?', {fakePlate, realPlate})
         --If using mk_vehiclekeys the script handles these updates so nothing needs to be added here for that script
 
     end
 
-    Config.FakeRemoved = function(PlayerSource, RealPlate, FakePlate, Vehicle, VehicleNetId)
-        ---@param PlayerSource number Player server id
-        ---@param RealPlate string Vehicle real plate that was set onto vehicle
-        ---@param FakePlate string Vehicle fake plate that was removed
-        ---@param Vehicle number Vehicle entity
-        ---@param VehicleNetId number Vehicle network id
-
+    ---@param playerSource number Player server id
+    ---@param realPlate string Vehicle real plate that was set onto vehicle
+    ---@param fakePlate string Vehicle fake plate that was removed
+    ---@param vehicle number Vehicle entity
+    ---@param netId number Vehicle network id
+    Config.FakeRemoved = function(playerSource, realPlate, fakePlate, vehicle, netId)
         --ADD ANY SERVER SIDE UPDATES YOU NEED TO DO HERE AFTER A FAKE PLATE IS REMOVED
         --EXAMPLE DATABASE UPDATE:
-        --local Result = MySQL.update.await('UPDATE `mycustomdatabasetable` SET fakeplate = NULL WHERE plate = :current', {current = RealPlate})
+        --local Result = MySQL.update.await('UPDATE `mycustomdatabasetable` SET fakeplate = NULL WHERE plate = ?', {realPlate})
         --If using mk_vehiclekeys the script handles these updates so nothing needs to be added here for that script
 
     end
 --
 
 --Progress Bar Config
-Config.ProgressCircle = true --true = circle progress bar from ox_lib / false = rectangle progress bar from ox_lib
-Config.ProgressCirclePosition = 'middle' --position of the progress circle. can be either 'middle' or 'bottom'
+    Config.ProgressCircle = true --true = circle progress bar from ox_lib / false = rectangle progress bar from ox_lib
+    Config.ProgressCirclePosition = 'middle' --position of the progress circle. can be either 'middle' or 'bottom'
 --
 
 --Vanity Plates Config
@@ -99,39 +85,22 @@ Config.ProgressCirclePosition = 'middle' --position of the progress circle. can 
         'SAHP',
     }
 
-    Config.ProfanityFilter = true --If set to true anything inside this table will be restricted in a vanity plate (Doesn't have to be the entire word; Example; if 'ass' is restricted then 'class' would not be a valid vanity plate.) Add/Remove as many words as you like.
-
-    Config.VanityInstalled = function(PlayerSource, OldPlate, NewPlate, Vehicle, VehicleNetId)
-        ---@param PlayerSource number Player server id
-        ---@param OldPlate string Old vehicle plate text
-        ---@param NewPlate string New vehicle plate next that was installed
-        ---@param Vehicle number Vehicle entity
-        ---@param VehicleNetId number Vehicle network id
-
+    ---@param playerSource number Player server id
+    ---@param oldPlate string Old vehicle plate text
+    ---@param newPlate string New vehicle plate next that was installed
+    ---@param vehicle number Vehicle entity
+    ---@param netId number Vehicle network id
+    Config.VanityInstalled = function(playerSource, oldPlate, newPlate, vehicle, netId)
         --ADD ANY SERVER SIDE UPDATES YOU NEED TO DO HERE AFTER A VANITY PLATE IS INSTALLED
         --EXAMPLE DATABASE UPDATE:
-        --local Result = MySQL.update.await('UPDATE `mycustomdatabasetable` SET plate = :vanity WHERE plate = :current', {vanity = NewPlate, current = OldPlate})
+        --local Result = MySQL.update.await('UPDATE `mycustomdatabasetable` SET plate = ? WHERE plate = ?', {newPlate, oldPlate})
         --If using mk_vehiclekeys the script handles these updates so nothing needs to be added here for that script
         
     end
 
---Notify Config
-    Config.Notify = { 
-        UseCustom = false, --FALSE = DEFAULT NOTIFY WILL BE YOUR FRAMEWORKS NOTIFY SYSTEM (QBCore:Notify / esx:showNotification) / TRUE = CUSTOM NOTIFY SCRIPT (OX_LIB / T-NOTIFY / ECT) (VIEW README FILE FOR DETAILED SETUP INFO)
-        CustomClientNotifyFunction = function(Data) --**CLIENT SIDE CODE**
-            ---@param Data table: { Message string, Type string (error, success, primary), Duration number }
-
-            --TriggerEvent('QBCore:Notify', Data.Message, Data.Type, Data.Duration) --QBCORE EXAMPLE
-        end,
-        CustomServerNotifyFunction = function(PlayerSource, Data) --**SERVER SIDE CODE** SAME AS ABOVE EXCEPT PASSES THE SOURCE TO SEND THE NOTIFICATION TO FROM THE SERVER
-            ---@param PlayerSource number Server id of the player
-            ---@param Data table: { Message string, Type string (error, success, primary), Duration number }
-
-            --TriggerClientEvent('QBCore:Notify', PlayerSource, Data.Message, Data.Type, Data.Duration) --QBCORE EXAMPLE
-        end,
-    }
-
 --Profanity Config
+    Config.ProfanityFilter = true --If set to true anything inside this table will be restricted in a vanity plate (Doesn't have to be the entire word; Example; if 'ass' is restricted then 'class' would not be a valid vanity plate.) Add/Remove as many words as you like.
+
     Config.Profanity = {
         "4r5e", 
         "5h1t", 
